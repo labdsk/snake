@@ -48,11 +48,13 @@
 <body>
   <canvas id="gameCanvas"></canvas>
   <img id="loveImage" class="fullscreen-image" src="image.jpg" alt="I love you">
+  <audio id="soundEffect" src="sound.mp3"></audio>
 
   <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const loveImage = document.getElementById('loveImage');
+    const soundEffect = document.getElementById('soundEffect');
 
     // Set canvas size
     canvas.width = 400;
@@ -85,9 +87,10 @@
       ctx.font = '20px Arial';
       ctx.fillText(`Score: ${score}`, 10, 30);
 
-      // Display full-screen image if score is 5
+      // Display full-screen image and play sound if score is 5
       if (score >= 5) {
         loveImage.style.display = 'block';
+        soundEffect.play(); // Play the sound
       } else {
         loveImage.style.display = 'none';
       }
@@ -140,6 +143,8 @@
       direction = { x: 0, y: 0 };
       score = 0;
       placeFood();
+      soundEffect.pause(); // Stop the sound
+      soundEffect.currentTime = 0; // Reset sound to the beginning
     }
 
     // Handle keyboard input
